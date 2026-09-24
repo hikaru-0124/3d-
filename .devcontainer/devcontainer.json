@@ -1,0 +1,7 @@
+{
+  "name": "Neon Crossfire",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:1-22-bookworm",
+  "forwardPorts": [3000],
+  "portsAttributes": {"3000": {"label": "Neon Crossfire PvP", "onAutoForward": "notify", "protocol": "http"}},
+  "postCreateCommand": "npm ci"
+}
