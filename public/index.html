@@ -1,7 +1,43 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NEON CROSSFIRE — Online Arena</title><link rel="stylesheet" href="/style.css"></head><body>
-<canvas id="game"></canvas><div class="grain"></div>
-<header><a class="brand" href="/">N<span>↗</span>C <small>NEON CROSSFIRE</small></a><div class="server"><i></i><span id="connection">ONLINE ARENA / PVP</span></div></header>
-<main id="lobby"><div class="eyebrow">MULTIPLAYER / FIRST PERSON SHOOTER</div><h1>NEON<br><span>CROSSFIRE</span><b>®</b></h1><p class="intro">狙いを定めろ。アリーナを制せ。<br>ブラウザでつながる、リアルタイム3Dバトル。</p><form id="join"><label>CALLSIGN <input id="name" maxlength="16" placeholder="プレイヤー名" value="" required></label><label>ROOM ID <input id="room" maxlength="24" pattern="[a-zA-Z0-9-]+" value="public" required></label><button id="enter">アリーナに参加 <span>↗</span></button><p id="status">同じROOM IDの仲間と対戦できます · 最大12人</p></form><div class="spec"><span>01 / FREE FOR ALL</span><span>02 / INSTANT RESPAWN</span><span>03 / NO DOWNLOAD</span></div></main>
-<div id="hud" hidden><div class="top-hud"><span id="roomLabel"></span><button id="share">招待リンクをコピー ↗</button></div><div id="crosshair">+</div><div id="hitmarker">×</div><div id="feed"></div><div class="bottom-hud"><div><small>VITAL SYSTEM</small><strong id="health">100</strong><div class="health-track"><i id="healthBar"></i></div></div><div class="weapon"><small>AR–01 / PULSE RIFLE</small><strong>∞ <span>AMMO</span></strong></div></div><aside><h3>LEADERBOARD <span id="online"></span></h3><div id="scores"></div></aside><div id="damage"></div></div>
-<div id="pause" hidden><h2 id="pauseTitle">READY TO FIGHT?</h2><p id="pauseText">クリックしてマウス操作を開始</p><button id="resume">戦闘を開始 ↗</button></div>
-<footer><span><kbd>W A S D</kbd> 移動</span><span><kbd>MOUSE</kbd> 視点</span><span><kbd>CLICK</kbd> 射撃</span><span><kbd>ESC</kbd> カーソル解除</span><em>DESKTOP RECOMMENDED / v1.0</em></footer><script type="module" src="/game.js"></script></body></html>
+<!doctype html>
+<html lang="ja">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#080e15"><title>PROP SHIFT — 変身かくれんぼ</title><link rel="stylesheet" href="/style.css"></head>
+<body>
+<canvas id="game" aria-label="3Dシューティングアリーナ"></canvas><div class="grain"></div>
+<header><a class="brand" href="/">N<span>↗</span>C <small>PROP SHIFT</small></a><div class="server"><i></i><span id="connection">HIDE / SEEK / SURVIVE</span></div></header>
+<main id="lobby">
+  <div class="eyebrow">MULTIPLAYER / PROP HUNT</div>
+  <h1>HIDE.<br><span>IN PLAIN SIGHT.</span></h1>
+  <p class="intro">今度のかくれんぼは、大きなおうち。<br>ソファの陰や寝室で、身近なモノに変身して隠れよう。</p>
+  <form id="join">
+    <label class="game-choice">GAME TYPE<select id="gameType"><option value="hunt">変身かくれんぼ</option><option value="arena">シューティングアリーナ</option></select></label>
+    <fieldset class="mode-picker"><legend>ゲームモード</legend><label><input type="radio" name="mode" value="practice" checked><span>01 / SOLO<strong>ボットで練習</strong></span></label><label><input type="radio" name="mode" value="online"><span>02 / MULTIPLAYER<strong>オンライン対戦</strong></span></label></fieldset>
+    <label>CALLSIGN <input id="name" maxlength="16" placeholder="プレイヤー名" required autocomplete="nickname"></label>
+    <label id="roomField">ROOM ID <input id="room" maxlength="24" pattern="[a-zA-Z0-9-]+" value="public" required></label>
+    <button id="enter">練習を開始 <span>↗</span></button>
+    <p id="status" role="status">3体のボットと対戦 · ひとりですぐに遊べます</p>
+  </form>
+  <div class="spec"><span>HIDEAWAY HOUSE</span><span>4 ROOMS</span><span>HIDE & SEEK</span></div>
+</main>
+<div id="hud" hidden>
+  <div class="top-hud"><span id="roomLabel"></span><button id="share">招待リンクをコピー ↗</button></div>
+  <section id="matchHud" hidden><div><span id="roundLabel">ROUND 01</span><strong id="phaseLabel">仲間を待っています</strong></div><strong id="matchTimer">--:--</strong><span id="remainingProps"></span></section>
+  <div id="roleHint" hidden></div><div id="blindfold" hidden><div class="eyebrow">NO PEEKING</div><h2>まだ、のぞいちゃダメ。</h2><p id="blindText">隠れる時間です</p></div>
+  <div id="crosshair"><i></i><i></i><i></i><i></i></div><div id="hitmarker">×</div>
+  <div id="killConfirm" role="status"></div><div id="feed" aria-live="polite"></div>
+  <div class="bottom-hud">
+    <div class="vitals"><small>VITAL SYSTEM</small><strong><span id="health">100</span><span class="unit"> / 100</span></strong><div class="health-track"><i id="healthBar"></i></div><p id="protection"></p></div>
+    <div class="weapon"><small id="weaponLabel">AR–01 / PULSE RIFLE</small><strong><span id="ammo">24</span><span class="unit"> / 24</span></strong><div class="reload-track"><i id="reloadBar"></i></div><p id="weaponStatus">R リロード · SHIFT ダッシュ</p></div>
+  </div>
+  <aside><h3>LEADERBOARD <span id="online"></span></h3><div id="scores"></div><div class="score-legend" id="scoreLegend">K / キル数　 D / デス数</div></aside>
+  <div id="damage"></div>
+</div>
+<div id="propPicker" hidden><span>変身するモノ <kbd>E</kbd> 切り替え</span><div><button data-shape="0" disabled>▣ 段ボール</button><button data-shape="1" disabled>▥ ごみ箱</button><button data-shape="2" disabled>♧ 鉢植え</button></div></div>
+<div id="pause" hidden>
+  <div class="eyebrow">PROP SHIFT / PLAY</div><h2 id="pauseTitle">READY TO FIGHT?</h2><p id="pauseText">クリックしてマウス操作を開始</p>
+  <button id="resume">戦闘を開始 ↗</button>
+  <div class="settings"><label for="sensitivity">マウス感度 <output id="sensitivityValue">1.0</output></label><input id="sensitivity" type="range" min="0.3" max="2.5" step="0.1" value="1"><label class="sound-setting"><input id="sound" type="checkbox" checked>効果音を再生</label></div>
+  <a class="leave" href="/">ロビーに戻る ↗</a>
+</div>
+<footer><span><kbd>W A S D</kbd> 移動</span><span><kbd>SHIFT</kbd> ダッシュ</span><span><kbd>CLICK</kbd> 射撃</span><span><kbd>R</kbd> リロード</span><span><kbd>E</kbd> 変身</span><span><kbd>ESC</kbd> メニュー</span><em>DESKTOP RECOMMENDED / v2.0</em></footer>
+<script type="module" src="/game.js"></script>
+</body></html>

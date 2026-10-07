@@ -1,7 +1,7 @@
 {
-  "name": "Neon Crossfire",
+  "name": "Prop Shift",
   "image": "mcr.microsoft.com/devcontainers/javascript-node:1-22-bookworm",
   "forwardPorts": [3000],
-  "portsAttributes": {"3000": {"label": "Neon Crossfire PvP", "onAutoForward": "notify", "protocol": "http"}},
+  "portsAttributes": {"3000": {"label": "Prop Shift / 変身かくれんぼ", "onAutoForward": "notify", "protocol": "http"}},
   "postCreateCommand": "npm ci"
 }
